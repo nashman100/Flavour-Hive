@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ManageRestaurantsActivity">
+
+    <EditText
+        android:id="@+id/editTextRestaurantName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Restaurant Name" />
+
+    <EditText
+        android:id="@+id/editTextRestaurantType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Restaurant Type" />
+
+    <EditText
+        android:id="@+id/editTextRestaurantRating"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Restaurant Rating" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewManageRestaurants"
+        android:layout_width="match_parent"
+        android:layout_height="455dp" />
+
+    <Button
+        android:id="@+id/btnAddRestaurant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Restaurant" />
+
+    <Button
+        android:id="@+id/btnRemoveRestaurant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Remove Restaurant" />
+
+</LinearLayout>

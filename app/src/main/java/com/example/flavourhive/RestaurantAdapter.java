@@ -1,5 +1,6 @@
 package com.example.flavourhive;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,7 @@ import java.util.List;
 
 public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.ViewHolder> implements Filterable {
 
-    private List<Restaurant> restaurantList;
+    private static List<Restaurant> restaurantList;
     private List<Restaurant> restaurantListFull;
 
     public RestaurantAdapter(List<Restaurant> restaurantList) {
@@ -86,6 +87,24 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
             restaurantName = itemView.findViewById(R.id.tvRestaurantName);
             restaurantType = itemView.findViewById(R.id.tvRestaurantType);
             restaurantRating = itemView.findViewById(R.id.ratingBar);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        // Get the clicked restaurant
+                        Restaurant clickedRestaurant = restaurantList.get(position);
+
+                        // Start the RestaurantDetailsActivity and pass the details
+                        Intent intent = new Intent(itemView.getContext(), RestaurantDetailsActivity.class);
+                        intent.putExtra("restaurant_name", clickedRestaurant.getName());
+                        intent.putExtra("restaurant_type", clickedRestaurant.getType());
+                        intent.putExtra("restaurant_rating", String.valueOf(clickedRestaurant.getRating()));
+                        itemView.getContext().startActivity(intent);
+                    }
+                }
+            });
         }
     }
 

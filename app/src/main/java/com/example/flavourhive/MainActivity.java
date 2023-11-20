@@ -11,6 +11,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -86,8 +87,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeSpinner(Spinner spinner) {
+        // Create a list of items for the Spinner
         List<String> dropdownItems = new ArrayList<>();
-        dropdownItems.add("\u2630");
+        dropdownItems.add(getString(R.string.three_line_icon)); // Three-line icon
         dropdownItems.add("About");
         dropdownItems.add("Restaurant Details");
 
@@ -100,11 +102,14 @@ public class MainActivity extends AppCompatActivity {
         // Apply the adapter to the Spinner
         spinner.setAdapter(adapter);
 
+        // Set a custom background to remove the default arrow
+        spinner.setBackground(ContextCompat.getDrawable(this, R.drawable.spinner_background));
+
         // Set a listener for item selection
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                // Handle the selected item only if it's not the default "Select an Option"
+                // Handle the selected item only if it's not the default three-line icon
                 if (position > 0) {
                     String selectedItem = dropdownItems.get(position);
                     Toast.makeText(MainActivity.this, "Selected: " + selectedItem, Toast.LENGTH_SHORT).show();

@@ -41,7 +41,7 @@ public class ManageRestaurantsActivity extends AppCompatActivity {
         buttonAdd = findViewById(R.id.btnAddRestaurant);
         buttonRemove = findViewById(R.id.btnRemoveRestaurant);
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerViewManageRestaurants); // Ensure this ID matches your layout
+        RecyclerView recyclerView = findViewById(R.id.recyclerViewManageRestaurants);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         restaurantAdapter = new RestaurantAdapter(new ArrayList<>());
         recyclerView.setAdapter(restaurantAdapter);
@@ -84,18 +84,23 @@ public class ManageRestaurantsActivity extends AppCompatActivity {
     }
 
     private void addRestaurant() {
-        String name = editTextName.getText().toString();
-        String type = editTextType.getText().toString();
+        String name = editTextName.getText().toString().trim();
+        String type = editTextType.getText().toString().trim();
         float rating;
 
         try {
             rating = Float.parseFloat(editTextRating.getText().toString());
         } catch (NumberFormatException e) {
-            Toast.makeText(this, "Please enter valid rating", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please enter a valid rating", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (name.isEmpty() || type.isEmpty() || rating < 0) {
+        if (rating < 1 || rating > 5) {
+            Toast.makeText(this, "Please enter a rating between 1 and 5", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (name.isEmpty() || type.isEmpty()) {
             Toast.makeText(this, "Please enter valid details", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -109,6 +114,8 @@ public class ManageRestaurantsActivity extends AppCompatActivity {
             runOnUiThread(this::getRestaurants);
 
             runOnUiThread(() -> Toast.makeText(this, "Restaurant added successfully", Toast.LENGTH_SHORT).show());
+
+            clearEditTexts();
         });
     }
 
@@ -123,16 +130,21 @@ public class ManageRestaurantsActivity extends AppCompatActivity {
         }
 
         databaseExecutor.execute(() -> {
-            // Delete from Database
+
             restaurantDao.deleteByName(name);
 
-            // Refresh RecyclerView
-            // Note: runOnUiThread is used since RecyclerView updates must be done on the main thread
             runOnUiThread(this::getRestaurants);
 
-            // Show Toast on UI thread
             runOnUiThread(() -> Toast.makeText(this, "Restaurant removed successfully", Toast.LENGTH_SHORT).show());
+
+            clearEditTexts();
         });
+    }
+
+    private void clearEditTexts() {
+        editTextName.setText("");
+        editTextType.setText("");
+        editTextRating.setText("");
     }
 
     @Override

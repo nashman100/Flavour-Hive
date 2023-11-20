@@ -15,11 +15,11 @@ import java.util.List;
 public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.ViewHolder> implements Filterable {
 
     private List<Restaurant> restaurantList;
-    private List<Restaurant> restaurantListFull; // For filtering
+    private List<Restaurant> restaurantListFull;
 
     public RestaurantAdapter(List<Restaurant> restaurantList) {
         this.restaurantList = restaurantList;
-        restaurantListFull = new ArrayList<>(restaurantList); // Initialize the full list
+        restaurantListFull = new ArrayList<>(restaurantList);
     }
 
     @Override

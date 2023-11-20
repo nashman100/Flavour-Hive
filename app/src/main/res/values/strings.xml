@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Flavour Hive</string>
+    <string name="three_line_icon">&#9776;</string>
 </resources>

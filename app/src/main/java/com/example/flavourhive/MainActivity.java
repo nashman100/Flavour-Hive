@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         List<String> dropdownItems = new ArrayList<>();
         dropdownItems.add(getString(R.string.three_line_icon)); // Three-line icon
         dropdownItems.add("About");
+        dropdownItems.add("Map");
 
 
         // Create an ArrayAdapter using the custom layout for the string array
@@ -121,6 +122,12 @@ public class MainActivity extends AppCompatActivity {
                             Intent intentAbout = new Intent(MainActivity.this, AboutActivity.class);
                             startActivity(intentAbout);
                             break;
+                        case 2:
+                            // Navigation Activity
+                            Intent intentMap = new Intent(MainActivity.this, NavigationActivity.class);
+                            startActivity(intentMap);
+                            break;
+
 
                     }
                 }

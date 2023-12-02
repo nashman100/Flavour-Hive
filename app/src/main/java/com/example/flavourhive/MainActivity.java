@@ -91,7 +91,8 @@ public class MainActivity extends AppCompatActivity {
         List<String> dropdownItems = new ArrayList<>();
         dropdownItems.add(getString(R.string.three_line_icon)); // Three-line icon
         dropdownItems.add("About");
-        dropdownItems.add("Restaurant Details");
+        dropdownItems.add("Map");
+
 
         // Create an ArrayAdapter using the custom layout for the string array
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_dropdown_layout, dropdownItems);
@@ -122,10 +123,12 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(intentAbout);
                             break;
                         case 2:
-                            // Restaurant Details Activity
-                            Intent intentRestaurantDetails = new Intent(MainActivity.this, RestaurantDetailsActivity.class);
-                            startActivity(intentRestaurantDetails);
+                            // Navigation Activity
+                            Intent intentMap = new Intent(MainActivity.this, NavigationActivity.class);
+                            startActivity(intentMap);
                             break;
+
+
                     }
                 }
             }

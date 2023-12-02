@@ -21,7 +21,7 @@ public class ManageRestaurantsActivity extends AppCompatActivity {
 
     private Executor databaseExecutor = Executors.newSingleThreadExecutor();
 
-    private EditText editTextName, editTextType, editTextRating;
+    private EditText editTextName, editTextType, editTextRating, editTextAddress;
     private Button buttonAdd, buttonRemove;
     private RestaurantDao restaurantDao;
     private RestaurantAdapter restaurantAdapter;
@@ -38,6 +38,7 @@ public class ManageRestaurantsActivity extends AppCompatActivity {
         editTextName = findViewById(R.id.editTextRestaurantName);
         editTextType = findViewById(R.id.editTextRestaurantType);
         editTextRating = findViewById(R.id.editTextRestaurantRating);
+        editTextAddress = findViewById(R.id.editTextRestaurantAddress);
         buttonAdd = findViewById(R.id.btnAddRestaurant);
         buttonRemove = findViewById(R.id.btnRemoveRestaurant);
 
@@ -86,6 +87,7 @@ public class ManageRestaurantsActivity extends AppCompatActivity {
     private void addRestaurant() {
         String name = editTextName.getText().toString().trim();
         String type = editTextType.getText().toString().trim();
+        String address = editTextAddress.getText().toString().trim();
         float rating;
 
         try {
@@ -105,7 +107,7 @@ public class ManageRestaurantsActivity extends AppCompatActivity {
             return;
         }
 
-        RestaurantEntity newRestaurantEntity = new RestaurantEntity(0, name, type, String.valueOf(rating));
+        RestaurantEntity newRestaurantEntity = new RestaurantEntity(0, name, type, String.valueOf(rating), address);
 
         databaseExecutor.execute(() -> {
 
@@ -145,6 +147,7 @@ public class ManageRestaurantsActivity extends AppCompatActivity {
         editTextName.setText("");
         editTextType.setText("");
         editTextRating.setText("");
+        editTextAddress.setText("");
     }
 
     @Override

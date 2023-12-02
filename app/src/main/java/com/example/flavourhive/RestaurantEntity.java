@@ -18,11 +18,15 @@ public class RestaurantEntity {
     @ColumnInfo(name = "rating")
     private String rating;
 
-    public RestaurantEntity(int id, String name, String type, String rating) {
+    @ColumnInfo(name = "address")
+    private String address;
+
+    public RestaurantEntity(int id, String name, String type, String rating, String address) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.rating = rating;
+        this.address = address;
     }
 
     public int getId() {
@@ -56,4 +60,9 @@ public class RestaurantEntity {
     public void setRating(String rating) {
         this.rating = rating;
     }
+
+    public String getAddress(){ return address; }
+
+    public void setAddress(String Address){ this.address = address; }
+
 }

@@ -1,52 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <fragment
-        android:id="@+id/mapFragment"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="360dp"
-        android:layout_height="484dp"
+    <!-- Back Arrow -->
+
+    <ImageView
+        android:id="@+id/backArrow"
+        android:layout_width="71dp"
+        android:layout_height="86dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:padding="8dp"
+        android:src="@drawable/red_arrow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.647"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.935"
-        android:background="@drawable/my_border"/>
+        app:layout_constraintVertical_bias="0.0" />
 
-    <SearchView
-        android:id="@+id/searchView"
-        android:layout_width="305dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="176dp"
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="409dp"
+        android:layout_height="607dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteX="0dp"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/idSearchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@drawable/my_border"
-        android:imeOptions="actionSearch"
-        android:inputType="text"
-        android:queryHint="Enter location"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:elevation="5dp"
+        app:iconifiedByDefault="false"
+        app:layout_constraintBottom_toBottomOf="@+id/map"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.191"
+        app:queryHint="Search Here"
+        tools:layout_editor_absoluteX="-2dp" />
 
     <TextView
-        android:id="@+id/FindTextView"
-        android:layout_width="324dp"
-        android:layout_height="43dp"
-        android:text="Find A Restaurant Near You"
-        android:textAlignment="center"
-        android:textColor="@color/red"
-        android:textSize="25dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/searchMapTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search For Restaurants"
+        app:layout_constraintBottom_toBottomOf="@+id/map"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.574"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.164" />
-
+        app:layout_constraintVertical_bias="0.105"
+        android:textSize="30dp"
+        android:textColor="@color/red"
+        android:textStyle="bold"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

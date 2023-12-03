@@ -1,144 +1,89 @@
 package com.example.flavourhive;
 
-import android.os.AsyncTask;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
-import android.text.InputType;
-import android.util.Log;
-import android.view.inputmethod.EditorInfo;
-import android.widget.SearchView;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.ImageView;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentActivity;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.io.IOException;
+import java.util.List;
 
-import java.io.BufferedInputStream;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+public class NavigationActivity extends FragmentActivity implements OnMapReadyCallback {
 
-public class NavigationActivity extends AppCompatActivity {
-
-    private SearchView searchView;
-    private TextView findTextView;
-    private SupportMapFragment mapFragment;
+    private GoogleMap googleMap;
+    SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Places.initialize(getApplicationContext(), "AIzaSyCQMF0xuGoH4VmZBAv4x-Mzkag1JL30nBw");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation_layout);
+        // initializing search view.
+        searchView = findViewById(R.id.idSearchView);
 
-        searchView = findViewById(R.id.searchView);
-        findTextView = findViewById(R.id.FindTextView);
+        // Initialize the back arrow
+        ImageView backArrow = findViewById(R.id.backArrow);
+        backArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
-        // Set up SearchView
-        searchView.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
-        searchView.setInputType(InputType.TYPE_CLASS_TEXT);
-        searchView.setQueryHint("Enter location");
-
-        // Set up OnQueryTextListener
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                // Handle the search here, e.g., initiate the PlacesTask
-                new PlacesTask().execute(query);
-                return true;
+                String location = searchView.getQuery().toString();
+                List<Address> addressList = null;
+
+                // checking if the entered location is null or not.
+                if (location != null || location.equals("")) {
+                    Geocoder geocoder = new Geocoder(NavigationActivity.this);
+                    try {
+                        addressList = geocoder.getFromLocationName(location, 1);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    Address address = addressList.get(0);
+
+                    LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+
+                    //adding marker to that position.
+                    googleMap.addMarker(new MarkerOptions().position(latLng).title(location));
+
+                    //animate camera to that position.
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+                }
+                return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                // Handle text changes if needed
                 return false;
             }
         });
-
-        // Load Google Maps Fragment
-        loadMapFragment();
+        //calling map fragment to update.
+        mapFragment.getMapAsync(this);
     }
 
-
-    private void loadMapFragment() {
-        mapFragment = new SupportMapFragment();
-
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.mapFragment, mapFragment);
-        transaction.commit();
-    }
-
-    private class PlacesTask extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... params) {
-            String query = params[0];
-            String apiKey = "AIzaSyC55FD2E_Ua7KEB97cQFn9nPowKhfkuiCI";
-
-            try {
-                // Encode the query to be used in the URL
-                String encodedQuery = java.net.URLEncoder.encode(query, "UTF-8");
-
-                // Create the URL for the textsearch endpoint
-                URL url = new URL("https://maps.googleapis.com/maps/api/place/textsearch/json" +
-                        "?query=" + encodedQuery +
-                        "&key=" + apiKey);
-
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                try {
-                    InputStream stream = new BufferedInputStream(connection.getInputStream());
-                    return convertStreamToString(stream);
-                } finally {
-                    connection.disconnect();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            if (result != null) {
-                try {
-                    JSONObject jsonObject = new JSONObject(result);
-
-                    // Check for errors in the API response
-                    if (jsonObject.has("error_message")) {
-                        String errorMessage = jsonObject.getString("error_message");
-                        Log.e("PlacesTask", "API Error: " + errorMessage);
-                        return;
-                    }
-
-                    JSONArray results = jsonObject.getJSONArray("results");
-
-                    for (int i = 0; i < results.length(); i++) {
-                        JSONObject place = results.getJSONObject(i);
-
-                        // Extract information about the place
-                        String name = place.getString("name");
-                        String address = place.getString("formatted_address");
-
-                        // Log the information (you can modify this part based on your requirements)
-                        Log.d("PlacesTask", "Place #" + (i + 1) + ":");
-                        Log.d("PlacesTask", "Name: " + name);
-                        Log.d("PlacesTask", "Address: " + address);
-                        Log.d("PlacesTask", "---------------------");
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        private String convertStreamToString(InputStream stream) {
-            java.util.Scanner s = new java.util.Scanner(stream).useDelimiter("\\A");
-            return s.hasNext() ? s.next() : "";
-        }
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        this.googleMap = googleMap;
     }
 }
+

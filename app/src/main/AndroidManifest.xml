@@ -40,13 +40,18 @@
 
         <activity
             android:name=".NavigationActivity"
-            android:exported="false"
-            android:parentActivityName=".RestaurantDetailsActivity" />
+            android:exported="true"
+            android:parentActivityName=".MainActivity" />
 
         <activity
             android:name=".RestaurantDetailsActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity"/>
+
+        <activity
+            android:name=".RestaurantDetailsOnMapActivity"
+            android:exported="true"
+            android:parentActivityName=".RestaurantDetailsActivity" />
 
         <activity
             android:name=".ManageRestaurantsActivity"

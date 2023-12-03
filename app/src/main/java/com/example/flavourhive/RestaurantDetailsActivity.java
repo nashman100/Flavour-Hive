@@ -17,12 +17,12 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_activity);
 
-        navigateButton = findViewById(R.id.navigate_button);
+        navigateButton = findViewById(R.id.detailstomap_button);
         navigateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Start the NavigationActivity
-                Intent intent = new Intent(RestaurantDetailsActivity.this, NavigationActivity.class);
+                Intent intent = new Intent(RestaurantDetailsActivity.this, RestaurantDetailsOnMapActivity.class);
                 startActivity(intent);
             }
         });

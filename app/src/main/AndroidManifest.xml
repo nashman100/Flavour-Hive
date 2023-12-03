@@ -19,7 +19,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyC55FD2E_Ua7KEB97cQFn9nPowKhfkuiCI" />
+            android:value="AIzaSyCQMF0xuGoH4VmZBAv4x-Mzkag1JL30nBw" />
 
         <activity
             android:name=".SplashActivity"

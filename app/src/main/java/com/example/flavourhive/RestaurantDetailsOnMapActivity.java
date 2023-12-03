@@ -28,9 +28,9 @@ public class RestaurantDetailsOnMapActivity extends AppCompatActivity implements
     @Override
     public void onMapReady(GoogleMap googleMap) {
         // Get restaurant details from the intent or wherever you have them
-        double restaurantLatitude = 43.67384;  // Replace with actual latitude
-        double restaurantLongitude = -79.39636; // Replace with actual longitude
-        String restaurantName = "Sotto Sotto"; // Replace with actual restaurant name
+        double restaurantLatitude = 43.67384;  // Test - Replace with actual latitude
+        double restaurantLongitude = -79.39636; // Test - Replace with actual longitude
+        String restaurantName = "Sotto Sotto"; // Test - Replace with actual restaurant name
 
         // Add a marker for the restaurant and move the camera
         LatLng restaurantLatLng = new LatLng(restaurantLatitude, restaurantLongitude);

@@ -101,6 +101,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
                         intent.putExtra("restaurant_name", clickedRestaurant.getName());
                         intent.putExtra("restaurant_type", clickedRestaurant.getType());
                         intent.putExtra("restaurant_rating", String.valueOf(clickedRestaurant.getRating()));
+                        intent.putExtra("restaurant_address", clickedRestaurant.getAddress());
                         itemView.getContext().startActivity(intent);
                     }
                 }

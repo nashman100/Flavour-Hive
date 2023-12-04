@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
     private List<Restaurant> convertToRestaurantList(List<RestaurantEntity> restaurantEntities) {
         List<Restaurant> restaurants = new ArrayList<>();
         for (RestaurantEntity entity : restaurantEntities) {
-            restaurants.add(new Restaurant(entity.getName(), entity.getType(), Float.parseFloat(entity.getRating())));
+            restaurants.add(new Restaurant(entity.getName(), entity.getType(), Float.parseFloat(entity.getRating()), entity.getAddress()));
         }
         return restaurants;
     }

@@ -63,6 +63,6 @@ public class RestaurantEntity {
 
     public String getAddress(){ return address; }
 
-    public void setAddress(String Address){ this.address = address; }
+    public void setAddress(String address){ this.address = address; }
 
 }

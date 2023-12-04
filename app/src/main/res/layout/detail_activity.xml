@@ -1,49 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/detailstomap_button"
+        android:layout_width="121dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="107dp"
+        android:layout_marginTop="591dp"
+        android:layout_marginEnd="104dp"
+        android:layout_marginBottom="79dp"
+        android:background="@drawable/my_border"
+        android:text="Get Address"
+        android:textColor="@color/red"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/detailNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
+        android:layout_marginBottom="8dp"
+        android:text="name"
         android:textSize="20sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/detailTypeTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.961" />
 
     <TextView
         android:id="@+id/detailTypeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/detailNameTextView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:textSize="18sp"/>
+        android:layout_marginBottom="16dp"
+        android:text="type"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/detailAddressTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/detailRatingTextView"
+    <RatingBar
+        android:id="@+id/detailRatingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/detailTypeTextView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:textSize="18sp"/>
+        android:layout_marginBottom="220dp"
+        android:isIndicator="true"
+        android:numStars="5"
+        android:stepSize="0.1"
+        app:layout_constraintBottom_toTopOf="@+id/detailstomap_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/detailstomap_button"
+    <TextView
+        android:id="@+id/detailAddressTextView"
         android:layout_width="wrap_content"
-        android:layout_height="61dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="107dp"
-        android:layout_marginTop="591dp"
-        android:layout_marginEnd="104dp"
-        android:layout_marginBottom="79dp"
-        android:text="Get Address"
-        android:textColor="@color/red"
-        android:background="@drawable/my_border"/>
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:text="address"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/detailRatingBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent" />
 
-</RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

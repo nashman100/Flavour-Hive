@@ -7,7 +7,7 @@ public class Restaurant {
     private float rating;
     private String address;
 
-    public Restaurant(String name, String type, float rating) {
+    public Restaurant(String name, String type, float rating, String address) {
         this.name = name;
         this.type = type;
         this.rating = rating;
